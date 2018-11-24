@@ -8,13 +8,17 @@ namespace Podify
 {
     public partial class App : Application
     {
+        private NavigationPage _navigationManager;
+
+        public static App AppRoot => (App)Current;
+        public static NavigationPage NavigationManager { get => AppRoot?._navigationManager; }
 
         public App()
         {
             InitializeComponent();
 
-
-            MainPage = new MainPage();
+            _navigationManager = new NavigationPage(new PodcastSearchPage());
+            MainPage = _navigationManager;
         }
 
         protected override void OnStart()

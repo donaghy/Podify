@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Podify.Views.PodcastSearchPage"
+    xmlns:vm="clr-namespace:Podify.ViewModels"
+    xmlns:cc="clr-namespace:Podify.Controls"
+    xmlns:ext="clr-namespace:Podify.Extensions">
+    
+    <ContentPage.BindingContext>
+        <vm:PodcastSearchViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        
+        <Grid>
+        
+        <StackLayout Orientation="Vertical">
+            
+            <Entry Text="{Binding SearchString}" />
+            
+        <ListView
+                    x:Name="lstPodcasts"
+            ItemsSource="{Binding Podcasts}"
+            HasUnevenRows="true"
+                VerticalOptions="StartAndExpand">
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                                <Grid Margin="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Image Grid.Row="0" Source="{Binding artworkUrl100}" />
+                                    
+                        <StackLayout Grid.Column="2" Orientation="Vertical" Margin="0,10,0,10">
+                        <Label Text="{Binding collectionName}" FontSize="18" />
+                        <Label Text="{Binding artistName}" FontSize="12" />
+                            </StackLayout>
+                                    
+                                    
+                                </Grid>
+                    </ViewCell>
+                </DataTemplate>
+                </ListView.ItemTemplate>
+            
+        </ListView>
+            
+            <Button Text="Search" Command="{Binding SearchCommand}" />
+            
+            </StackLayout>
+        
+            <cc:BusyIndicator IsBusy="{Binding IsBusy}" />
+            
+            </Grid>
+        
+    </ContentPage.Content>
+    
+</ContentPage>

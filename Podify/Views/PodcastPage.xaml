@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Podify.Views.PodcastPage"
+    xmlns:vm="clr-namespace:Podify.ViewModels"
+    xmlns:cc="clr-namespace:Podify.Controls">
+    
+    <ContentPage.BindingContext>
+        <vm:PodcastViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        
+        <StackLayout Orientation="Vertical">
+          
+        <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Image Grid.Row="0" Source="{Binding Podcast.ImageUrl}" />
+                                    
+                        <StackLayout Grid.Column="2" Orientation="Vertical" Margin="0,10,0,10">
+                        <Label Text="{Binding Podcast.Title.Text}" FontSize="18" />
+                        <Label Text="{Binding Podcast.LastUpdatedTime, StringFormat='{0:dd-MMM-yyyy HH:mm}'}" FontSize="12" />
+                            </StackLayout>
+                
+            </Grid>    
+            
+        <ListView
+                    x:Name="lstEpisodes"
+            ItemsSource="{Binding Episodes}"
+            HasUnevenRows="true"
+                VerticalOptions="StartAndExpand">
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical" Margin="10">
+                        <Label Text="{Binding Title.Text}" FontSize="18" />
+                        <Label Text="{Binding PublishDate, StringFormat='{0:dd-MMM-yyyy}'}" FontSize="12" />
+                            </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+                </ListView.ItemTemplate>
+            
+        </ListView>
+            
+            <cc:BusyIndicator IsBusy="{Binding IsBusy}" />
+            
+            </StackLayout>
+        
+    </ContentPage.Content>
+    
+    </ContentPage>
